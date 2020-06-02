@@ -1,0 +1,8 @@
+#settings_plugin_endscripts .text-center {
+  text-align: center !important;
+}
+
+#octoprint_endscripts_scripteditor {
+  width: 800px;
+  margin-left: -400px;
+}

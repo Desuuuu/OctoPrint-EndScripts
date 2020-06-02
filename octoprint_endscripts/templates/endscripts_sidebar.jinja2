@@ -1,0 +1,8 @@
+<!-- ko foreach: scripts -->
+  <div>
+    <label class="checkbox">
+      <input type="checkbox" data-bind="checked: enabled, click: $parent.toggleScript.bind($data, $index())">
+      <span data-bind="text: name"></span>
+    </label>
+  </div>
+<!-- /ko -->
