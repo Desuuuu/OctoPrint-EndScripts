@@ -174,6 +174,7 @@ class EndScriptsPlugin(octoprint.plugin.TemplatePlugin,
 	def _run_end_scripts(self, data):
 		for index in range(len(self.scripts)):
 			if not self.scripts[index]["enabled"]:
+				self._logger.debug("Script disabled: %s", self.scripts[index]["name"])
 				continue
 
 			try:
@@ -304,7 +305,12 @@ class EndScriptsPlugin(octoprint.plugin.TemplatePlugin,
 
 				self._printData = None
 		elif event == Events.PRINT_DONE:
-			self._printData = payload
+			if self._printer.get_state_id() == "OPERATIONAL":
+				self._run_end_scripts(payload)
+
+				self._printData = None
+			else:
+				self._printData = payload
 		elif event in [Events.PRINT_STARTED, Events.PRINT_CANCELLING, Events.PRINT_CANCELLED, Events.PRINT_FAILED]:
 			self._printData = None
 		elif event == Events.USER_LOGGED_IN:
